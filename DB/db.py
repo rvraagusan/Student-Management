@@ -76,6 +76,18 @@ class Database(object):
         else:
             return {'request':{'message':'Successfully update the response', 'updated':updated_value}}
 
+    def course_lookup_db(self, code):
+        resp=[]
+        pipeline = [
+            {'$match': {'Course_code': code}}
+            ]
+        
+        results = self.db['TEACHER'].aggregate(pipeline)
+        for result in results:
+            data = {'Name' : result['Name'], 'Subject': result['Subject']}
+            resp.append(data)
+        return resp
+
 
 if __name__ == "__main__":
     db = Database()
