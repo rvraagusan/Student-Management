@@ -22,3 +22,12 @@ to restore need to install mongo restore tool after that
 ```bash
 mongorestore --port <port> --db <destination database> --collection <collection-name> <data-dump-path/dbname/collection.bson>
 ```
+# API Endpoints
+some of Endpoint listed here 
+add new student - `/insert_student`
+update student - `/student/update/<id>`
+delete student - `/student/remove/<id>`
+search student - `/student/<id>`
+add course - `/add_course`
+add teacher - `/add_teacher`
+find course teacher - `/find_teacher`
