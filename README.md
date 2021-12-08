@@ -31,3 +31,10 @@ search student - `/student/<id>`
 add course - `/add_course`
 add teacher - `/add_teacher`
 find course teacher - `/find_teacher`
+
+# Future Improvement 
+ > unit test cases endpoints 
+ > mongo lookup implementation
+ > middleware implementation (tokenization)
+ > log file implementation
+ > upgrading debug to unicorn production server
