@@ -94,5 +94,24 @@ def update_teacher(id):
     else:
         return {'message':'Request method in invalid' }, 405
 
+@app.route('/add_course', methods=['PUT','POST'])
+def insert_course():
+    _json = request.json
+    if request.method == 'PUT':
+        msg = database.insert_data('COURSE', _json)
+        return msg, 200
+    else:
+        return {'message':'Request method in invalid' }, 405
+@app.route('/find_teacher', methods=['PUT', 'POST'])
+def course_view():
+    _json = request.json
+    code = _json['Course_code']
+    if request.method=='POST':
+        data = database.course_lookup_db(code)
+        return {'Request':_json, 'Results': data }
+    else:
+        return {'message':'Request method in invalid' }, 405
+
+
 if __name__ == '__main__':
     app.run(debug=True)
