@@ -33,8 +33,8 @@ add teacher - `/add_teacher` <br />
 find course teacher - `/find_teacher` <br />
 
 # Future Improvement 
- > unit test cases endpoints 
- > mongo lookup implementation
- > middleware implementation (tokenization)
- > log file implementation
- > upgrading debug to unicorn production server
+ > unit test cases endpoints <br />
+ > mongo lookup implementation <br />
+ > middleware implementation (tokenization) <br />
+ > log file implementation <br />
+ > upgrading debug to unicorn production server <br />
