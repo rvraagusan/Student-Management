@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from pymongo.errors import PyMongoError
+from bson.json_util import dumps
 
 # client = MongoClient(port=27017)
 # db = client.STUDENTMDB
@@ -37,7 +38,44 @@ class Database(object):
             return {'message':self.database_error_msg}
 
         else:
-            return {'message': 'Successfully insert a response'}    
+            return {'message': 'Successfully insert a response'}
+
+    def get_data(self, get_collection, search_id=None):
+        data=[]
+        if search_id == None:
+            try:
+                db_collection = self.db[f'{get_collection}']
+                users = db_collection.find(projection= {'_id':False})
+                data  = [ user for user in users]
+                return { 'request':{'message': 'All records received'}, 'response':data}
+            except PyMongoError:
+                return {'message':self.database_error_msg}
+        else:
+            try:
+                db_collection = self.db[f'{get_collection}']
+                data = db_collection.find_one(filter={'St_id':search_id}, projection= {'_id':False})
+                return { 'request':{'message': 'record received', 'Search Id':f'{search_id}'}, 'response':data}
+            except PyMongoError:
+                return {'message':self.database_error_msg}
+
+    def detele_data(self, del_collections, search_id):
+        try:
+            db_collection = self.db[f'{del_collections}']
+            db_collection.delete_one({'St_id': search_id})
+        except PyMongoError:
+            return {'message':self.database_error_msg}
+        else:
+            return {'message': 'Successfully remove the user'}
+
+    def update_data(self, up_collections, search_id, updated_value):
+        try:
+            db_collection = self.db[f'{up_collections}']
+            db_collection.update_one({'St_id':search_id},{"$set":updated_value})
+        except PyMongoError:
+            return {'request': {'message':self.database_error_msg}}
+        else:
+            return {'request':{'message':'Successfully update the response', 'updated':updated_value}}
+
 
 if __name__ == "__main__":
     db = Database()
